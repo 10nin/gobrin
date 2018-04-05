@@ -1,6 +1,5 @@
-(ns gobrin.core)
+(ns gobrin.core
+  (:require [net.cgrand.enlive-html :as html]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defn fetch-url [url]
+  (html/xml-resource (java.net.URL. url)))
