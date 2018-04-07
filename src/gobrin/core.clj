@@ -8,3 +8,6 @@
 (defn get-title [res]
   "get <title> list from resource."
   (map html/text (html/select res [:title])))
+
+(defn head [n s]
+  (apply str (take n s)))
