@@ -13,3 +13,7 @@
   (let [ss (apply str (take n s))]
     (if (< n (count s)) (str ss "...")
         ss)))
+
+(defn make-link [dic]
+  (map (render "<a href={{:link}} target=\"_blank\">{{:text}}</a>" %) dic))
+
