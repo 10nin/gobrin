@@ -1,5 +1,6 @@
 (ns gobrin.core
-  (:require [net.cgrand.enlive-html :as html]))
+  (:require [net.cgrand.enlive-html :as html]
+            [selmer.parser :as tmpl]))
 
 (defn fetch-url [url]
   "get xml resrouce from url."
@@ -15,5 +16,5 @@
         ss)))
 
 (defn make-link [dic]
-  (map (render "<a href={{:link}} target=\"_blank\">{{:text}}</a>" %) dic))
-
+  "Make <a> tag link from {:text 'caption', :link url} style dictionary."
+  (map #(tmpl/render "<a href={{:link}} target=\"_blank\">{{:text}}</a>" %) dic))
