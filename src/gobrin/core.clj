@@ -7,8 +7,8 @@
   (html/xml-resource (java.net.URL. url)))
 
 (defn get-title [res]
-  "get <title> list from resource."
-  (map html/text (html/select res [:item :title])))
+  "get <link> and <title> list from resource."
+  (map html/text (html/select res [:item :> #{:title :link}])))
 
 (defn head [n s]
   (let [ss (apply str (take n s))]
