@@ -6,9 +6,14 @@
   "get xml resrouce from url."
   (html/xml-resource (java.net.URL. url)))
 
-(defn get-title [res]
+(defn make-title-map [title-elements]
+  (let [l (first title-elements)
+        t (second title-elements)]
+    {(:tag l) (first (:content l)), (:tag t) (first (:content t))}))
+
+(defn get-title-elements [res]
   "get <link> and <title> list from resource."
-  (map html/text (html/select res [:item :> #{:title :link}])))
+  (partition 2 (html/select res [:item :> #{:title :link}])))
 
 (defn head [n s]
   (let [ss (apply str (take n s))]
