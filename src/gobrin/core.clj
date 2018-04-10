@@ -26,6 +26,6 @@
     (if (< n (count s)) (str ss "...")
         ss)))
 
-(defn make-link [dic]
+(defn make-hyperlink [dic]
   "Make <a> tag link from {:text 'caption', :link url} style dictionary."
-  (map #(tmpl/render "<a href={{:link}} target=\"_blank\">{{:text}}</a>" %) dic))
+  (tmpl/render "<a href=\"{{link}}\" target=\"_blank\">{{title}}</a>" dic))
