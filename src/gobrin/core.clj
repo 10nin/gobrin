@@ -9,7 +9,13 @@
 (defn make-title-map [title-elements]
   (let [l (first title-elements)
         t (second title-elements)]
-    {(:tag l) (first (:content l)), (:tag t) (first (:content t))}))
+    {(:tag l)
+     (->> (:content l)
+          first),
+     (:tag t)
+     (->> (:content t)
+          first
+          (head 15))}))
 
 (defn get-title-elements [res]
   "get <link> and <title> list from resource."
