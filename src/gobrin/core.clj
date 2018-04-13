@@ -47,3 +47,5 @@
        get-title-elements
        make-title-map)))
       
+(defn render-html [contents]
+  (tmpl/render-file "rss.html" contents))
