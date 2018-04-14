@@ -2,6 +2,8 @@
   (:require [net.cgrand.enlive-html :as html]
             [selmer.parser :as tmpl]))
 
+(def ^:dynamic *rss-list* '({:id "kantei" :rss "https://www.kantei.go.jp/index-jnews.rdf"}))
+
 (defn fetch-url [url]
   "get xml resrouce from url."
   (html/xml-resource (java.net.URL. url)))
@@ -46,6 +48,9 @@
    (-> (fetch-url url)
        get-title-elements
        make-title-map)))
-      
+
 (defn render-html [contents]
   (tmpl/render-file "rss.html" contents))
+
+(defn make-file []
+  (map #(make-hyperlink (:rss %)) *rss-list*))
