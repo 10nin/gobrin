@@ -53,4 +53,5 @@
   (tmpl/render-file "rss.html" contents))
 
 (defn make-file []
-  (map #(make-hyperlink (:rss %)) *rss-list*))
+  (let [contents (map #(make-hyperlink (:rss %)) *rss-list*)]
+    (map render-html contents)))
