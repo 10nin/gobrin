@@ -50,7 +50,7 @@
        make-title-map)))
 
 (defn render-html [contents]
-  (tmpl/render-file "rss.html" contents))
+  (tmpl/render-file "templates/rss.html" contents))
 
 (defn make-file []
   (let [contents (map #(make-hyperlink (:rss %)) *rss-list*)]
