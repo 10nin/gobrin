@@ -8,8 +8,8 @@
   <meta name="author" content="10nin">
 </head>
 <body>
-  <% for c in contents %>
-  {{c}}
-  <% endfor %>
+  {% for c in contents %}
+  {{c|safe}}<br>
+  {% endfor %}
 </body>
 </html>

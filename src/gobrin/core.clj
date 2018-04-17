@@ -49,9 +49,9 @@
        get-title-elements
        make-title-map)))
 
-(defn render-html [contents]
-  (tmpl/render-file "templates/rss.html" contents))
+(defn render-html- [contents]
+  (tmpl/render-file "templates/rss.html" {:contents contents}))
 
-(defn make-file []
-  (let [contents (map #(make-hyperlink (:rss %)) *rss-list*)]
-    (map render-html contents)))
+(defn render-html [url-list]
+  (let [contents (map #(make-hyperlink (:rss %)) url-list)]
+    (map render-html- contents)))
