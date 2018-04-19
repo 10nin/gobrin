@@ -6,7 +6,9 @@
             [net.cgrand.enlive-html :as html]
             [selmer.parser :as tmpl]))
 
-(def ^:dynamic *rss-list* '({:id "kantei" :rss "https://www.kantei.go.jp/index-jnews.rdf"}))
+(def ^:dynamic *rss-list*
+  '({:id "kantei" :rss "https://www.kantei.go.jp/index-jnews.rdf"}
+    {:id "mic" :rss "http://www.soumu.go.jp/news.rdf"}))
 (defonce server (atom nil))
 
 (defn fetch-url [url]
@@ -39,13 +41,6 @@
 (defn make-hyperlink- [dic]
   "Make <a> tag link from {:text 'caption', :link url} style dictionary."
   (tmpl/render "<a href=\"{{link}}\" target=\"_blank\">{{title}}</a>" dic))
-
-(defn make-div [id links]
-  (tmpl/render "<div id=\"{{id}}\">
-{% for l in links %}
-{{l|safe}}<br>
-{% endfor %}
-</div>" {:id id, :links links}))
 
 (defn make-hyperlink [url]
   (map

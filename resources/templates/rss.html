@@ -2,14 +2,22 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-
   <title>RSS</title>
   <meta name="description" content="My RSS List">
   <meta name="author" content="10nin">
+  <style type="text/css">
+    div.rss_content {
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid black;
+    }
+  </style>
 </head>
 <body>
   {% for c in contents %}
-  {{c|safe}}<br>
+  <div class="rss_content">
+    {{c|safe}}<br>
+  </div>
   {% endfor %}
 </body>
 </html>
