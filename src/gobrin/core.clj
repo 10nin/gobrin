@@ -8,20 +8,6 @@
 
 (def ^:dynamic *rss-list* '({:id "kantei" :rss "https://www.kantei.go.jp/index-jnews.rdf"}))
 (defonce server (atom nil))
-(defn html [res]
-  (assoc res :headers {"Content-Type" "text/html; charset=utf-8"}))
-
-(defn root-view [req]
-  "<p>Soon...</p>")
-
-(defn root-handler [req]
-  (-> (root-view req)
-      res/response
-      html))
-
-(defroutes handlers
-  (GET "/" req root-handler)
-  (route/not-found "<h1>HTTP 404 : Not found</h1>"))
 
 (defn fetch-url [url]
   "get xml resrouce from url."
@@ -73,8 +59,22 @@
 
 (defn render-html [url-list]
   (let [contents (map #(make-hyperlink (:rss %)) url-list)]
-    (map render-html- contents)))
+    (first (map render-html- contents))))
 
+(defn html [res]
+  (assoc res :headers {"Content-Type" "text/html; charset=utf-8"}))
+
+(defn root-view [req]
+  (render-html *rss-list*))
+
+(defn root-handler [req]
+  (-> (root-view req)
+      res/response
+      html))
+
+(defroutes handlers
+  (GET "/" req root-handler)
+  (route/not-found "<h1>HTTP 404 : Not found</h1>"))
 (defn start-server [& {:keys [host port join?]
                        :or {host "localhost" port 3000 join? false}}]
   (let [port (if (string? port) (Integer/parseInt port) port)]
