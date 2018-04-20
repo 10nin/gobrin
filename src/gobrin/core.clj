@@ -1,5 +1,9 @@
 (ns gobrin.core
   (:require [net.cgrand.enlive-html :as html]
+            [compojure.core :refer [defroutes context GET]]
+            [compojure.route :as route]
+            [ring.adapter.jetty :as server]
+            [ring.util.response :as res]
             [selmer.parser :as tmpl]))
 
 (def ^:dynamic *rss-list*
@@ -31,6 +35,13 @@
   "get <link> and <title> list from resource."
   (partition 2 (html/select res [:item :> #{:title :link}])))
 
+(defn make-div [id links]
+  (tmpl/render "<div id=\"{{id}}\">
+{% for l in links %}
+{{l|safe}}<br>
+{% endfor %}
+</div>" {:id id, :links links}))
+
 (defn make-title-map [title-elements]
   (map make-title-map- title-elements))
 
@@ -49,8 +60,9 @@
   (tmpl/render-file "templates/rss.html" {:contents contents}))
 
 (defn render-html [url-list]
-  (let [contents (map #(make-hyperlink (:rss %)) url-list)]
-    (first (map render-html- contents))))
+  (-> (map #(make-hyperlink (:rss %)) url-list)
+  ;; (let [contents (map #(make-hyperlink (:rss %)) url-list)]
+  ;;   (first (map render-html- contents))))
 
 (defn html [res]
   (assoc res :headers {"Content-Type" "text/html; charset=utf-8"}))
