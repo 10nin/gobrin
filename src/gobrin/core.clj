@@ -1,9 +1,5 @@
 (ns gobrin.core
-  (:require [compojure.core :refer [defroutes context GET]]
-            [compojure.route :as route]
-            [ring.adapter.jetty :as server]
-            [ring.util.response :as res]
-            [net.cgrand.enlive-html :as html]
+  (:require [net.cgrand.enlive-html :as html]
             [selmer.parser :as tmpl]))
 
 (def ^:dynamic *rss-list*
