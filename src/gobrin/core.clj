@@ -20,6 +20,7 @@
     (if (< n (count s)) (str ss "...")
         ss)))
 
+;; TODO: titleタグとlinkタグを正しく見て要素の分割を行うように改修する(さらに下請けにしてもいいかも)
 (defn make-title-map- [elm]
   (let [l (first elm)
         t (second elm)]
@@ -35,6 +36,7 @@
   "get <link> and <title> list from resource."
   (partition 2 (html/select res [:item :> #{:title :link}])))
 
+;; TODO: うまくdivタグ下にリンクがまとまるように修正する
 (defn make-div [id links]
   (tmpl/render "<div id=\"{{id}}\">
 {% for l in links %}
@@ -49,6 +51,7 @@
   "Make <a> tag link from {:text 'caption', :link url} style dictionary."
   (tmpl/render "<a href=\"{{link}}\" target=\"_blank\">{{title}}</a>" dic))
 
+;; TODO: hyperlinkのリストをdivで囲むように修正する(make-div活用)
 (defn make-hyperlink [url]
   (map
    make-hyperlink-
