@@ -60,9 +60,9 @@
   (tmpl/render-file "templates/rss.html" {:contents contents}))
 
 (defn render-html [url-list]
-  (-> (map #(make-hyperlink (:rss %)) url-list)
-  ;; (let [contents (map #(make-hyperlink (:rss %)) url-list)]
-  ;;   (first (map render-html- contents))))
+;;  (-> (map #(make-hyperlink (:rss %)) url-list)
+  (let [contents (map #(make-hyperlink (:rss %)) url-list)]
+    (first (map render-html- contents))))
 
 (defn html [res]
   (assoc res :headers {"Content-Type" "text/html; charset=utf-8"}))
